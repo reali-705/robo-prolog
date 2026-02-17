@@ -154,6 +154,7 @@ limpar_tudo :-
     limpar_se_sujo(cozinha),
     limpar_se_sujo(quarto),
     limpar_se_sujo(banheiro),
+    limpar_se_sujo(garagem),
     format('~n=== TODOS OS COMODOS LIMPOS! ===~n').
 
 % Auxiliar para limpar apenas se estiver sujo
@@ -194,7 +195,7 @@ fazer_tudo :-
     format('~n=== ESTADO FINAL ===~n'),
     estado_geral_atual,
     
-    format('~n=== TODAS AS TAREFAS CONCLUÍDAS! ===~n').
+    format('~n=== TODAS AS TAREFAS CONCLUIDAS! ===~n').
 
 % Auxiliar para passar todas as roupas
 passar_todas_roupas :-
@@ -325,7 +326,7 @@ limpar(Local) :-
     % Fase 3: Finalização - voltar e guardar kit
     finalizar_limpeza,
     
-    format('Limpeza de ~w concluída com sucesso!~n', [Local]),
+    format('Limpeza de ~w concluida com sucesso!~n', [Local]),
     !.  % Cut final para evitar backtracking
 
 % Fase 1: Preparação
@@ -456,7 +457,7 @@ cozinhar(Comida) :-
     % Ligar fogão
     retract(modo_fogao(desligado)),
     assertz(modo_fogao(ligado)),
-    format('Fogão ligado.~n'),
+    format('Fogao ligado.~n'),
     
     % Cozinhar
     format('Cozinhando ~w...~n', [Comida]),
@@ -466,7 +467,7 @@ cozinhar(Comida) :-
     % Desligar fogão
     retract(modo_fogao(ligado)),
     assertz(modo_fogao(desligado)),
-    format('Fogão desligado.~n'),
+    format('Fogao desligado.~n'),
     
     % Servir na mesa
     atom_concat(Comida, '_cozido', PratoCozido),
@@ -502,6 +503,7 @@ estado_geral_atual :-
     comodo(cozinha, EstadoCozinha), format('Cozinha: ~w~n', [EstadoCozinha]),
     comodo(quarto, EstadoQuarto), format('Quarto: ~w~n', [EstadoQuarto]),
     comodo(banheiro, EstadoBanheiro), format('Banheiro: ~w~n', [EstadoBanheiro]),
+    comodo(garagem, EstadoGaragem), format('Garagem: ~w~n', [EstadoGaragem]),
     
     % Fogao
     format('~n--- Fogao ---~n'),
@@ -562,7 +564,8 @@ estado_comodos :-
     comodo(sala, EstadoSala), format('  Sala: ~w~n', [EstadoSala]),
     comodo(cozinha, EstadoCozinha), format('  Cozinha: ~w~n', [EstadoCozinha]),
     comodo(quarto, EstadoQuarto), format('  Quarto: ~w~n', [EstadoQuarto]),
-    comodo(banheiro, EstadoBanheiro), format('  Banheiro: ~w~n', [EstadoBanheiro]).
+    comodo(banheiro, EstadoBanheiro), format('  Banheiro: ~w~n', [EstadoBanheiro]),
+    comodo(garagem, EstadoGaragem), format('  Garagem: ~w~n', [EstadoGaragem]).
 
 pratos_na_mesa :-
     pratos_na_mesa(Lista),
